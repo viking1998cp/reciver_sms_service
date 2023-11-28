@@ -20,10 +20,10 @@ public class BaseResponse {
         isSuccess = success;
     }
 
-    @SerializedName("error_code")
+    @SerializedName("status_code")
     protected String errorCode;
 
 
-    @SerializedName("is_success")
+    @SerializedName("data")
     protected Boolean isSuccess;
 }

@@ -43,7 +43,7 @@ public class SmsDatabase extends SQLiteOpenHelper {
                     " ) ";
 
     private String UNIQUE_INDEX =
-            "CREATE UNIQUE INDEX unique_sender_code ON sms_notification (sender, code);";
+            "CREATE UNIQUE INDEX unique_sender_code ON sms_notification (sender);";
 
 
     public SmsDatabase(Context context) {

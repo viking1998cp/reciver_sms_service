@@ -36,7 +36,7 @@ public class SmsReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         smsDatabase = new SmsDatabase(context);
-        smsBankService = RetrofitClient.getHttpClient();
+        smsBankService = RetrofitClient.getHttpClient(context);
         if (!intent.getAction().equals("android.provider.Telephony.SMS_RECEIVED"))
             return;
 

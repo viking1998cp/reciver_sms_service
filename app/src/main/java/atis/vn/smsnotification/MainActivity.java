@@ -25,6 +25,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.google.gson.Gson;
 import com.zoomx.zoomx.config.Config;
 import com.zoomx.zoomx.config.ZoomX;
+import com.zoomx.zoomx.ui.ZoomxUIOption;
 
 import java.util.ArrayList;
 
@@ -58,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ZoomX.init(new Config.Builder(this).build());
+        ZoomX.init(new Config.Builder(this).showOnShakeEvent(true).showMenuOnAppStart(true).setZoomxUIOptions(ZoomxUIOption.NOTIFICATION).build());
         swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
         mRecyclerView = findViewById(R.id.rcv_common);
         txtNoMes = findViewById(R.id.txt_no_pending);
@@ -200,9 +201,9 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, "Số tin nhắn đang tồn đọng: " + numberOfSMS,
                 Toast.LENGTH_LONG).show();
         txtNoMes.setText("Tin nhắn đang chờ (" + numberOfSMS + ")");
-        if (!smsList.isEmpty()) {
+
             adapter.updateList(smsList);
-        }
+
     }
 
     private void showDialogClickItemSMS(final SMS sms) {
@@ -250,9 +251,11 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         Log.e(TAG, "Send to server Fail");
                         smsDatabase.updateSMSById(sms.getId(), 2, (sms.getAttempt() + 1));
+
                     }
+
                 } else {
-                    Toast.makeText(MainActivity.this, "Send code: " + sms.getCode() + " Fail", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "Send code: Fail", Toast.LENGTH_LONG).show();
                     Gson gson = new Gson();
                     try {
                         SmsResponse mError = gson.fromJson(response.errorBody().string(), SmsResponse.class);
@@ -263,6 +266,8 @@ public class MainActivity extends AppCompatActivity {
                     }
                     smsDatabase.updateSMSById(sms.getId(), 2, (sms.getAttempt() + 1));
                 }
+
+                checkAvailSMS();
             }
 
             @Override

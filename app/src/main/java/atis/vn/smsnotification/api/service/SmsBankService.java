@@ -7,10 +7,10 @@ import atis.vn.smsnotification.api.response.SmsResponse;
 import atis.vn.smsnotification.model.SMS;
 
 public interface SmsBankService {
-    @POST("/internal/add-sms-bank-transfer")
+    @POST("/banking/incoming-sms")
     Call<SmsResponse> sendSms(@Body SMS sms);
 
-    @POST("/internal/add-sms-bank-transfer")
+    @POST("/banking/incoming-sms")
     Call<SmsResponse> sendSmsBackup(@Body SMS ping);
 
 }
