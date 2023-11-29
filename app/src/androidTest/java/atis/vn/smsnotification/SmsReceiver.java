@@ -54,10 +54,10 @@ public class SmsReceiver extends BroadcastReceiver {
             Log.e(TAG, "content: " + content);
             String checkResult = checkMatchBankSMS(content);
 
-            if (checkResult.equals("")) {
-                Log.e(TAG, content + " :Không phải SMS bank transfer");
-                return;
-            }
+//            if (checkResult.equals("")) {
+//                Log.e(TAG, content + " :Không phải SMS bank transfer");
+//                return;
+//            }
 
             SmsMessage currenSMS = SmsMessage.createFromPdu((byte[]) data[0]);
 
